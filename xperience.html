@@ -155,6 +155,93 @@ body, html{
 }
 
 
+/* ===== Image Gallery ===== */
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+    gap:10px;
+}
+
+.gallery img{
+    width:100%;
+    height:120px;
+    object-fit:cover;
+    border-radius:12px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.gallery img:hover{
+    transform:scale(1.05);
+}
+
+/* ===== Lightbox ===== */
+#lightbox {
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius:12px;
+    box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+/* ===== Lightbox Arrows ===== */
+.nav{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:40px;
+    color:#fff;
+    cursor:pointer;
+    padding:10px 15px;
+    background:rgba(0,0,0,0.4);
+    border-radius:50%;
+    
+}
+
+.nav:hover{
+    background:rgba(0,0,0,0.7);
+}
+
+.prev{
+    right:20px; /* لأن الصفحة RTL */
+}
+
+.next{
+    left:20px;
+}
+/* Horizontal scroll gallery */
+.gallery{
+    display:flex;
+    overflow-x:auto;
+    gap:10px;
+    padding-bottom:10px;
+}
+
+.gallery img{
+    flex:0 0 auto;
+    width:150px; /* أو حسب المساحة */
+    height:100px;
+    border-radius:12px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.gallery img:hover{
+    transform:scale(1.05);
+}
+
+
 
 </style>
 </head>
@@ -204,10 +291,22 @@ body, html{
 
 <div class="card">
     <h3 style="text-align:center;color:#fd690d;margin-bottom:10px;">صور الفندق</h3>
-<div class="card">
-    <iframe src="https://drive.google.com/file/d/1tInbVUSzT3hhj7HOpLvIlm8G1QuNNajY/preview" 
-            width="100%" height="500" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-    </iframe>
+<div class="gallery">
+
+<img src="https://lh3.googleusercontent.com/d/16LxAQ9NXaJM4_twrHQFPPBUc6gUB1CeU=w2000">
+<img src="https://lh3.googleusercontent.com/d/1XYqNQyA9SDA2KcxEeEISvp1CVfSZFO2t=w2000">
+<img src="https://lh3.googleusercontent.com/d/1c6Jcvh5Ny2nz419p4afZMKnznrf_PLay=w2000">
+<img src="https://lh3.googleusercontent.com/d/12KinpSot04Cxa4Nwfv5DPBDlBXn0lI26=w2000">
+<img src="https://lh3.googleusercontent.com/d/1i99AZKvvJZCQ0jn97CfTfOJVo8_bKjd2=w2000">
+<img src="https://lh3.googleusercontent.com/d/1ETPY29kRox0BgQ-1N_XJwm93KXflFi3k=w2000">
+<img src="https://lh3.googleusercontent.com/d/1yGU2JX2_2sSQ7s1IQoNxMn3Jn6TZm8cW=w2000">
+<img src="https://lh3.googleusercontent.com/d/13ctGJ7S-WiIrpjOdJ9RWWOnNla2lZaNx=w2000">
+<img src="https://lh3.googleusercontent.com/d/1MswQl0Uc68S3wRuKxFw57n4SjfQvbWuR=w2000">
+<img src="https://lh3.googleusercontent.com/d/13kb_e02QtpyfJs7YcIRxD7hZlmvCFICh=w2000">
+<img src="https://lh3.googleusercontent.com/d/18mH4X3Y1GIigzc9YIc9bAeK39_BIHL9z=w2000">
+<img src="https://lh3.googleusercontent.com/d/1VX1BAfQlw0r6_qW21bww6MmNlApXTgsA=w2000">
+<img src="https://lh3.googleusercontent.com/d/1C_gFc7CLla6ygEtvq5dISsambiUfL8RT=w2000">
+
 </div>
    <div class="card">
     <iframe src="https://drive.google.com/file/d/1Y_aBmqbA1zQDi5H-V6AXRoutJLJS7PY8/preview" 
@@ -220,22 +319,57 @@ body, html{
 
 <!-- Lightbox Overlay -->
 <div id="lightbox">
+    <span class="nav prev">&#10095;</span>
     <img id="lightbox-img" src="">
+    <span class="nav next">&#10094;</span>
 </div>
-
 
 <script>
 const images = Array.from(document.querySelectorAll('.gallery img'));
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
+const prevBtn = document.querySelector('.prev');
+const nextBtn = document.querySelector('.next');
 
 let currentIndex = 0;
-let startX = 0;
-let isSwiping = false;
 
+// فتح الصورة
+images.forEach((img, index) => {
+    img.addEventListener('click', () => {
+        currentIndex = index;
+        showImage();
+        lightbox.style.display = "flex";
+    });
+});
 
+function showImage(){
+    lightboxImg.src = images[currentIndex].src;
+}
+
+// السهم اللي يجيب الصورة اللي بعدها
+nextBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    currentIndex++;
+    if(currentIndex >= images.length){
+        currentIndex = 0;
+    }
+    showImage();
+});
+
+// السهم اللي يرجع صورة
+prevBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    currentIndex--;
+    if(currentIndex < 0){
+        currentIndex = images.length - 1;
+    }
+    showImage();
+});
+
+// قفل لما اضغط بره الصورة
+lightbox.addEventListener('click', () => {
+    lightbox.style.display = "none";
+});
 </script>
-
-
 </body>
 </html>

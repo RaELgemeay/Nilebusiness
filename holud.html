@@ -294,7 +294,24 @@ body, html{
         </tr>
     </table>
 </div>
+<div class="card">
+    <h3 style="text-align:center;color:#fd690d;margin-bottom:10px;">صور الفندق</h3>
+<div class="gallery">
 
+<img src="https://lh3.googleusercontent.com/d/1bcmjkTtPaK8CO0YWr7CU9Ws9SgHCl9I_=w1200">
+<img src="https://lh3.googleusercontent.com/d/1EdOUWjuRIMYucQwv7-vKCT0DR7IrDORw=w1200">
+<img src="https://lh3.googleusercontent.com/d/1ygqfNI1A88K_RcZ5CPKtcm8zJx_-hq_v=w1200">
+<img src="https://lh3.googleusercontent.com/d/18S2rlbiMNPdpfHrNH2lhRMzcf8HCuAyC=w1200">
+<img src="https://lh3.googleusercontent.com/d/1tL0a6SbFeoKN1YoukcydHj4VlBHeHLgz=w1200">
+<img src="https://lh3.googleusercontent.com/d/1z3_LFa9N4CEWpGdi0DTpaVcnHhl336qw=w1200">
+<img src="https://lh3.googleusercontent.com/d/1GWAwYse2O9-qZiSLjV90IfGtkrG3z-Sd=w1200">
+<img src="https://lh3.googleusercontent.com/d/1KXt-yiU7EDD5oVKd7fIBUH4deNbEajvZ=w1200">
+<img src="https://lh3.googleusercontent.com/d/1pYtqS5qDdRH8stTPEfQPc_0x9pC5p1FJ=w1200">
+<img src="https://lh3.googleusercontent.com/d/1JXkzB666F5xSBh2zztKcsxQnAElbrzIa=w1200">
+<img src="https://lh3.googleusercontent.com/d/1qKDXbTLi2_bv1_J0PEcELba2WBtPB3tS=w1200">
+<img src="https://lh3.googleusercontent.com/d/1VEEKgZSz3CWkRPEOdVM6qMTdoEgUupht=w1200">
+
+</div>
 
 <div class="card">
     <iframe src="https://drive.google.com/file/d/1CkQ6sWTAu6pjzBEeUe4EB1551JHqwVi1/preview" 
@@ -305,21 +322,57 @@ body, html{
 
 <!-- Lightbox Overlay -->
 <div id="lightbox">
+    <span class="nav prev">&#10095;</span>
     <img id="lightbox-img" src="">
+    <span class="nav next">&#10094;</span>
 </div>
 
 <script>
 const images = Array.from(document.querySelectorAll('.gallery img'));
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
+const prevBtn = document.querySelector('.prev');
+const nextBtn = document.querySelector('.next');
 
 let currentIndex = 0;
-let startX = 0;
-let isSwiping = false;
 
+// فتح الصورة
+images.forEach((img, index) => {
+    img.addEventListener('click', () => {
+        currentIndex = index;
+        showImage();
+        lightbox.style.display = "flex";
+    });
+});
 
+function showImage(){
+    lightboxImg.src = images[currentIndex].src;
+}
+
+// السهم اللي يجيب الصورة اللي بعدها
+nextBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    currentIndex++;
+    if(currentIndex >= images.length){
+        currentIndex = 0;
+    }
+    showImage();
+});
+
+// السهم اللي يرجع صورة
+prevBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    currentIndex--;
+    if(currentIndex < 0){
+        currentIndex = images.length - 1;
+    }
+    showImage();
+});
+
+// قفل لما اضغط بره الصورة
+lightbox.addEventListener('click', () => {
+    lightbox.style.display = "none";
+});
 </script>
-
-
 </body>
 </html>
