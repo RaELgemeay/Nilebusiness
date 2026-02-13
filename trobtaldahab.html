@@ -304,25 +304,89 @@ body, html{
 <div class="card">
     <h3 style="text-align:center;color:#fd690d;margin-bottom:10px;">صور الفندق</h3>
 
+<div class="gallery">
 
+<img src="https://lh3.googleusercontent.com/d/1NhJsfQYGTi9EYFrCeeqt2wj7buK1ulTm=w2000">
+<img src="https://lh3.googleusercontent.com/d/1aDttCpBHetlrBcPP6dNM0xzfREQAi2cE=w2000">
+<img src="https://lh3.googleusercontent.com/d/1A9Ogno70dYWs7arE1A0VvmcvnanlRALH=w2000">
+<img src="https://lh3.googleusercontent.com/d/1mRt1WP-1cEXulc-2Q9RuZm2dVf_v6li_=w2000">
+<img src="https://lh3.googleusercontent.com/d/1yiGIw6Ans29Bqd7_7GP1-1UY-1XkNKbW=w2000">
+<img src="https://lh3.googleusercontent.com/d/1UDupgDqAoDWcgs56p_nwHnYfwNHsLWqx=w2000">
+<img src="https://lh3.googleusercontent.com/d/1MHVWQ9kgcHOdVVLo3fgBtrfYmIf8EpVj=w2000">
+<img src="https://lh3.googleusercontent.com/d/1ofYI6dJpfT6WS0Rpsfzq6r_VsKaJmwPT=w2000">
+<img src="https://lh3.googleusercontent.com/d/1Fc7IT0GZuPGbBzxYKixPUzfmFgBBZJcQ=w2000">
+<img src="https://lh3.googleusercontent.com/d/1zsuJ3bH6NM7v3xjsbeyNyKza0Je9yupV=w2000">
+<img src="https://lh3.googleusercontent.com/d/1W-F8TD5vH1S69FkF8a5M4c3pYU_QzXqu=w2000">
+<img src="https://lh3.googleusercontent.com/d/1uK1LBRUq_gK37LnQmSqwEMPYYduNg1zG=w2000">
+<img src="https://lh3.googleusercontent.com/d/1F6J_McnsrYIOK582c-ooIwD9K9E9WNN4=w2000">
+<img src="https://lh3.googleusercontent.com/d/1J3uHXvfAAWKmGWBfEEqJsM_cRZGwKqpi=w2000">
+<img src="https://lh3.googleusercontent.com/d/1Q8xisKIdkfH78oMd7oZzeBf5mTfaY9-d=w2000">
+<img src="https://lh3.googleusercontent.com/d/1fGI9URukIiKg6Yg9kREjWNDjr3DYei5W=w2000">
+<img src="https://lh3.googleusercontent.com/d/1gUZilp69RJMu-_EewlFKe2Q2vHX6aCNZ=w2000">
+<img src="https://lh3.googleusercontent.com/d/1zjCb_g9tXDJ2SrFU_-1mEpOOn3R_rtco=w2000">
+
+</div>
+<div class="card">
+    <iframe src="https://drive.google.com/file/d/1cmFzfFusMZVzMga51Brji8yeLwIW2sR6/preview" 
+            width="100%" height="500" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+    </iframe>
+</div>
 
 
 <a class="back" href="index.html">⬅ رجوع لقائمة الفنادق</a>
 
-<!-- Lightbox Overlay -->
 <div id="lightbox">
+    <span class="nav prev">&#10095;</span>
     <img id="lightbox-img" src="">
+    <span class="nav next">&#10094;</span>
 </div>
-
 
 <script>
 const images = Array.from(document.querySelectorAll('.gallery img'));
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
+const prevBtn = document.querySelector('.prev');
+const nextBtn = document.querySelector('.next');
 
 let currentIndex = 0;
-let startX = 0;
-let isSwiping = false;
+
+// فتح الصورة
+images.forEach((img, index) => {
+    img.addEventListener('click', () => {
+        currentIndex = index;
+        showImage();
+        lightbox.style.display = "flex";
+    });
+});
+
+function showImage(){
+    lightboxImg.src = images[currentIndex].src;
+}
+
+// السهم اللي يجيب الصورة اللي بعدها
+nextBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    currentIndex++;
+    if(currentIndex >= images.length){
+        currentIndex = 0;
+    }
+    showImage();
+});
+
+// السهم اللي يرجع صورة
+prevBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    currentIndex--;
+    if(currentIndex < 0){
+        currentIndex = images.length - 1;
+    }
+    showImage();
+});
+
+// قفل لما اضغط بره الصورة
+lightbox.addEventListener('click', () => {
+    lightbox.style.display = "none";
+});
 </script>
 </body>
 </html>

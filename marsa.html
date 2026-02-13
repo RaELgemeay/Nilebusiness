@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>فنادق مرسي مطروح - Nile City Travel</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    direction: rtl;
+    background:#f4f6f8;
+}
+
+/* Header */
+header{
+    background:#fd690d;
+    color:#fff;
+    text-align:center;
+    padding:16px 10px;
+}
+
+header h1{
+    margin:0;
+    font-size:22px;
+}
+
+header p{
+    margin:5px 0 0;
+    font-size:14px;
+    opacity:.9;
+}
+
+/* List */
+.hotel-list{
+    width:100%;
+    padding:10px;
+    box-sizing:border-box;
+}
+
+/* Card */
+.hotel-card{
+    background:#fff;
+    padding:16px 14px;
+    margin-bottom:10px;
+    border-radius:14px;
+    font-size:18px;
+    font-weight:bold;
+    color:#333;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 3px 8px rgba(0,0,0,.1);
+    cursor:pointer;
+    transition:.2s;
+}
+
+/* Arrow */
+.hotel-card::after{
+    content:"›";
+    font-size:26px;
+    color:#fd690d;
+}
+
+/* Tap effect */
+.hotel-card:active{
+    background:#fd690d;
+    color:#fff;
+    transform:scale(.97);
+}
+.hotel-card:active::after{
+    color:#fff;
+}
+
+/* Link reset */
+a{
+    text-decoration:none;
+}
+
+/* Footer */
+footer{
+    background:#fd690d;
+    color:#fff;
+    text-align:center;
+    padding:12px;
+    font-size:14px;
+}
+
+/* Desktop تحسين بسيط */
+@media(min-width:768px){
+    .hotel-list{
+        max-width:700px;
+        margin:auto;
+    }
+    .hotel-card{
+        font-size:20px;
+        padding:18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Nile City Travel</h1>
+    <p>فنادق شرم الشيخ</p>
+</header>
+
+<div class="hotel-list">
+
+<a href="theview.html">
+    <div class="hotel-card"> ذا فيو </div>
+</a>
+
+<a href="blue.html">
+    <div class="hotel-card"> بلو باي </div>
+</a>
+
+</div>
+
+
+
+</body>
+</html>
